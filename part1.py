@@ -23,6 +23,10 @@ def main():
         print("Error: Wrong amount.")
         return
 
+    currency = input("Сonvert to: ").upper()
+    if currency not in currencies:
+        print("Error: Unknown currency.")
+        return
 
 if __name__ == '__main__':
     main()
