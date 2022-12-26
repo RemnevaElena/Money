@@ -1,3 +1,5 @@
+import requests
+from bs4 import BeautifulSoup as bs
 
 def get_amount(string):
     ok = True
@@ -10,6 +12,15 @@ def get_amount(string):
     else:
         return None
 
+def getSoup():
+    try:
+        request = requests.get("https://www.banki.ru/products/currency/cb/")
+        if request.status_code == 200:  # OK
+            return bs(request.text, "html.parser")
+        else:
+            return None
+    except Exception:
+        return None
 
 def main():
     currencies = ["USD", "EUR", "AUD", "CAD", "BYN", "KZT", "UAH", "GBP", "CZK", "CHF", "JPY"]
@@ -23,6 +34,10 @@ def main():
         print("Error: Wrong amount.")
         return
 
+    currency = input("Сonvert to: ").upper()
+    if currency not in currencies:
+        print("Error: Unknown currency.")
+        return
 
 if __name__ == '__main__':
     main()
